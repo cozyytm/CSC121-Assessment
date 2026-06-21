@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Module 1 | Web Programming Basics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a1628; --blue: #1a3a6b; --accent: #2e86ff;
+      --accent2: #00d4aa; --light: #f0f4ff; --gray: #8892a4; --text: #1e2d40;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+
+    nav {
+      background: var(--navy); padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--accent); padding: 1rem 0; }
+    .nav-logo span { color: var(--accent2); }
+    nav ul { list-style: none; display: flex; gap: 0.5rem; }
+    nav ul li a { color: #cbd5e0; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+    nav ul li a:hover, nav ul li a.active { background: var(--accent); color: white; }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      padding: 3.5rem 2rem 3rem; text-align: center; color: white;
+    }
+    .breadcrumb { font-size: 0.8rem; color: #6b8cba; margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--accent2); text-decoration: none; }
+    .page-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -1px; }
+    .page-hero h1 span { color: var(--accent2); }
+    .page-hero p { color: #a0b4cc; margin-top: 0.8rem; font-size: 0.95rem; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+    .card {
+      background: white; border-radius: 14px; border: 1px solid #e2e8f0;
+      padding: 2rem; margin-bottom: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+    .card h2::before { content: ''; display: inline-block; width: 4px; height: 20px; background: linear-gradient(var(--accent), var(--accent2)); border-radius: 2px; }
+    .card p { color: #4a5568; font-size: 0.93rem; line-height: 1.75; margin-bottom: 0.8rem; }
+
+    ul.styled { list-style: none; padding: 0; }
+    ul.styled li { padding: 0.5rem 0 0.5rem 1.5rem; position: relative; color: #4a5568; font-size: 0.93rem; border-bottom: 1px solid #f0f4ff; }
+    ul.styled li:last-child { border-bottom: none; }
+    ul.styled li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; top: 0.6rem; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.5rem; }
+    th { background: var(--navy); color: white; padding: 0.75rem 1rem; text-align: left; font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 0.7rem 1rem; border-bottom: 1px solid #edf0f7; color: #4a5568; }
+    tr:nth-child(even) td { background: #f8faff; }
+    tr:hover td { background: #eef4ff; }
+
+    .audio-box { background: #f0f4ff; border-radius: 10px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .audio-box p { font-size: 0.88rem; color: var(--gray); margin: 0; }
+    audio { width: 100%; }
+
+    .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem; }
+    .img-block {
+      background: linear-gradient(135deg, #e8f0ff, #c8d8f8);
+      border-radius: 10px; padding: 2rem 1rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; text-align: center;
+    }
+    .img-block span { font-size: 0.78rem; color: var(--gray); }
+    .img-block svg { opacity: 0.5; }
+
+    .nav-btns { display: flex; justify-content: space-between; margin-top: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .nav-btns a { text-decoration: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
+    .btn-back { background: white; color: var(--navy); border: 1.5px solid #c8d8f8; }
+    .btn-back:hover { background: #f0f4ff; }
+    .btn-next { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(46,134,255,0.3); }
+    .btn-next:hover { background: #1a70e0; }
+
+    footer { background: var(--navy); color: #6b7a94; text-align: center; padding: 2rem; font-size: 0.85rem; }
+    footer span { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">CSC<span>121</span></div>
+  <ul>
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="modules.html" class="active">Modules</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> › <a href="modules.html">Modules</a> › Module 1</div>
+  <h1><span>01 /</span> Web Programming Basics</h1>
+  <p>Introduction to the Internet, the Web, and how they work together.</p>
+</div>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <div class="card">
+    <h2>Module Overview</h2>
+    <p>This module introduces the foundational concepts of the Internet and the World Wide Web. It covers how information travels across networks, how websites are hosted and served, and why web programming is an essential skill in today's digital world.</p>
+    <p>By the end of this module, students should understand the difference between the internet and the web, how a browser requests and receives web pages, and the roles of client and server in web communication.</p>
+  </div>
+
+  <!-- TOPICS LIST -->
+  <div class="card">
+    <h2>Topics Covered</h2>
+    <ul class="styled">
+      <li>What is the Internet? History and Evolution</li>
+      <li>What is the World Wide Web (WWW)?</li>
+      <li>Difference between Internet and the Web</li>
+      <li>How Browsers and Web Servers Communicate</li>
+      <li>Client-Server Architecture</li>
+      <li>HTTP and HTTPS Protocols</li>
+      <li>Domain Names, URLs, and IP Addresses</li>
+      <li>Introduction to Web Programming Languages</li>
+      <li>Overview of Front-end vs Back-end Development</li>
+    </ul>
+  </div>
+
+  <!-- LAB SCHEDULE TABLE -->
+  <div class="card">
+    <h2>Lab Schedule</h2>
+    <table>
+      <thead>
+        <tr><th>Week</th><th>Topic Covered</th><th>Lab Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Week 1</td><td>Introduction to the Internet & WWW</td><td>Quiz 1</td></tr>
+        <tr><td>Week 2</td><td>Client-Server Model & HTTP Protocol</td><td>Practical Exercise 1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+<div class="card">
+    <h2>Lab Practical Visuals</h2>
+    <div class="img-grid">
+        
+        <div class="img-block" style="padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+            <img src="https://i.imgur.com/FDqkdyw.jpeg" alt="How the Internet Works" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"/>
+        </div>
+
+        <div class="img-block" style="padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+            <img src="https://i.imgur.com/dCKP4bB.png" alt="Client-Server Diagram" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"/>
+        </div>
+
+    </div>
+    <p style="margin-top:1rem; font-size:0.82rem; color:var(--gray);">Replace the placeholder boxes above with your actual lab screenshots or diagrams.</p>
+</div>
+
+
+  <!-- AUDIO -->
+<div class="card">
+    <h2>Audio Lecture Excerpt</h2>
+    <div class="audio-box">
+        <p>🎧 Listen to the lecture introduction for Web Development</p>
+        <audio controls style="width: 100%; margin-top: 0.5rem;">
+            <source src="https://files.catbox.moe/oezfn6.mp3" type="audio/mpeg"/>
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+</div>
+
+  <div class="nav-btns">
+    <a href="index.html" class="btn-back">← Back to Overview</a>
+    <a href="module2.html" class="btn-next">Module 2: HTML →</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>CSC 121 — Web Programming Lab Portfolio &nbsp;|&nbsp; <span>Module 1: Web Basics</span></p>
+</footer>
+
+</body>
+</html>

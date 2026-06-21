@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | CSC 121</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy: #0a1628; --blue: #1a3a6b; --accent: #2e86ff; --accent2: #00d4aa; --light: #f0f4ff; --gray: #8892a4; --text: #1e2d40; }
+    body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+
+    nav { background: var(--navy); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--accent); padding: 1rem 0; }
+    .nav-logo span { color: var(--accent2); }
+    nav ul { list-style: none; display: flex; gap: 0.5rem; }
+    nav ul li a { color: #cbd5e0; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+    nav ul li a:hover, nav ul li a.active { background: var(--accent); color: white; }
+
+    .page-hero { background: linear-gradient(135deg, var(--navy), var(--blue)); padding: 3.5rem 2rem 3rem; text-align: center; color: white; }
+    .page-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -1px; }
+    .page-hero h1 span { color: var(--accent2); }
+    .page-hero p { color: #a0b4cc; margin-top: 0.8rem; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 5rem; display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem; align-items: start; }
+
+    @media (max-width: 640px) { main { grid-template-columns: 1fr; } }
+
+    .card { background: white; border-radius: 14px; border: 1px solid #e2e8f0; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
+    .card h2::before { content: ''; display: inline-block; width: 4px; height: 18px; background: linear-gradient(var(--accent), var(--accent2)); border-radius: 2px; }
+
+    /* STUDENT INFO */
+    .info-row { display: flex; flex-direction: column; gap: 0.3rem; padding: 0.9rem 0; border-bottom: 1px solid #f0f4ff; }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gray); }
+    .info-value { font-size: 0.95rem; font-weight: 600; color: var(--navy); }
+
+    /* FORM */
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    input, textarea, select {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1.5px solid #d1ddf0; border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text);
+      background: #f8faff; transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(46,134,255,0.12);
+      background: white;
+    }
+    input::placeholder, textarea::placeholder { color: #b0bac8; }
+    textarea { resize: vertical; min-height: 110px; }
+
+    .btn-submit {
+      width: 100%; padding: 0.85rem;
+      background: linear-gradient(135deg, var(--accent), #1a70e0);
+      color: white; border: none; border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(46,134,255,0.35);
+      letter-spacing: 0.3px;
+    }
+    .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(46,134,255,0.4); }
+    .btn-submit:active { transform: translateY(0); }
+
+    #success-msg {
+      display: none; background: #e6fff8; border: 1.5px solid var(--accent2);
+      color: #007a60; padding: 1rem; border-radius: 8px; margin-top: 1rem;
+      font-size: 0.9rem; font-weight: 500; text-align: center;
+    }
+
+    footer { background: var(--navy); color: #6b7a94; text-align: center; padding: 2rem; font-size: 0.85rem; }
+    footer span { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">CSC<span>121</span></div>
+  <ul>
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="modules.html">Modules</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <h1>Contact <span>Page</span></h1>
+  <p>Student information and visitor contact form.</p>
+</div>
+
+<main>
+
+  <!-- STUDENT INFO -->
+  <div class="card">
+    <h2>Student Details</h2>
+    <div class="info-row">
+      <span class="info-label">Full Name</span>
+      <span class="info-value">Lekwa Chukwuemeka Michael</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Registration Number</span>
+      <span class="info-value">25/CO/CY/092</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Department</span>
+      <span class="info-value">CyberSecurity</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Course</span>
+      <span class="info-value">CSC 121 — Web Programming</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Academic Session</span>
+      <span class="info-value">2025 / 2026</span>
+    </div>
+  </div>
+
+  <!-- CONTACT FORM -->
+  <div class="card">
+    <h2>Send a Message</h2>
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="e.g. John Doe" />
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="e.g. +234 800 000 0000" />
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" placeholder="What is your message about?" />
+    </div>
+    <div class="form-group">
+      <label for="comments">Comments</label>
+      <textarea id="comments" placeholder="Type your message here..."></textarea>
+    </div>
+    <button class="btn-submit" onclick="submitForm()">Send Message</button>
+    <div id="success-msg">✅ Message sent successfully! Thank you for reaching out.</div>
+  </div>
+
+</main>
+
+<footer>
+  <p>CSC 121 — Web Programming Lab Portfolio &nbsp;|&nbsp; <span>Contact Page</span></p>
+</footer>
+
+<script>
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const comments = document.getElementById('comments').value.trim();
+
+    if (!name || !phone || !subject || !comments) {
+      alert('Please fill in all fields before submitting.');
+      return;
+    }
+
+    document.getElementById('success-msg').style.display = 'block';
+    document.getElementById('name').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('subject').value = '';
+    document.getElementById('comments').value = '';
+
+    setTimeout(() => {
+      document.getElementById('success-msg').style.display = 'none';
+    }, 5000);
+  }
+</script>
+
+</body>
+</html>

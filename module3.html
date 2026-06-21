@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Module 3 | CSS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a1628; --blue: #1a3a6b; --accent: #2e86ff;
+      --accent2: #00d4aa; --light: #f0f4ff; --gray: #8892a4; --text: #1e2d40;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+
+    nav { background: var(--navy); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--accent); padding: 1rem 0; }
+    .nav-logo span { color: var(--accent2); }
+    nav ul { list-style: none; display: flex; gap: 0.5rem; }
+    nav ul li a { color: #cbd5e0; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+    nav ul li a:hover, nav ul li a.active { background: var(--accent); color: white; }
+
+    .page-hero { background: linear-gradient(135deg, var(--navy), #0d2a52); padding: 3.5rem 2rem 3rem; text-align: center; color: white; }
+    .breadcrumb { font-size: 0.8rem; color: #6b8cba; margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--accent2); text-decoration: none; }
+    .page-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -1px; }
+    .page-hero h1 span { color: var(--accent2); }
+    .page-hero p { color: #a0b4cc; margin-top: 0.8rem; font-size: 0.95rem; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+    .card { background: white; border-radius: 14px; border: 1px solid #e2e8f0; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+    .card h2::before { content: ''; display: inline-block; width: 4px; height: 20px; background: linear-gradient(var(--accent), var(--accent2)); border-radius: 2px; }
+    .card p { color: #4a5568; font-size: 0.93rem; line-height: 1.75; margin-bottom: 0.8rem; }
+
+    ul.styled { list-style: none; padding: 0; }
+    ul.styled li { padding: 0.5rem 0 0.5rem 1.5rem; position: relative; color: #4a5568; font-size: 0.93rem; border-bottom: 1px solid #f0f4ff; }
+    ul.styled li:last-child { border-bottom: none; }
+    ul.styled li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; top: 0.6rem; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.5rem; }
+    th { background: var(--navy); color: white; padding: 0.75rem 1rem; text-align: left; font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 0.7rem 1rem; border-bottom: 1px solid #edf0f7; color: #4a5568; }
+    tr:nth-child(even) td { background: #f8faff; }
+    tr:hover td { background: #eef4ff; }
+
+    code { background: #eef4ff; color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.85rem; font-family: monospace; }
+
+    .code-block { background: var(--navy); color: #a8d8ff; padding: 1.2rem 1.5rem; border-radius: 10px; margin: 0.8rem 0; font-family: monospace; font-size: 0.85rem; line-height: 1.8; overflow-x: auto; }
+    .code-block .sel { color: #00d4aa; }
+    .code-block .prop { color: #a8d8ff; }
+    .code-block .val { color: #ff9580; }
+
+    /* LIVE CSS DEMO */
+    .demo-box { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; margin-top: 0.5rem; }
+    .demo-label { background: #f0f4ff; padding: 0.6rem 1rem; font-size: 0.78rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e2e8f0; }
+    .demo-content { padding: 1.5rem; }
+    .demo-box1 { background: #2e86ff; color: white; padding: 1rem 1.5rem; border-radius: 8px; font-weight: 600; text-align: center; font-size: 0.95rem; }
+    .demo-box2 { background: #0a1628; color: #00d4aa; padding: 0.8rem 1.2rem; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-top: 0.8rem; border-left: 3px solid #00d4aa; }
+
+    .color-swatches { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .swatch { border-radius: 8px; padding: 0.8rem 1.2rem; font-size: 0.78rem; color: white; font-weight: 600; min-width: 90px; text-align: center; }
+
+    .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem; }
+    .img-block { background: linear-gradient(135deg, #e8f0ff, #c8d8f8); border-radius: 10px; padding: 2rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; text-align: center; }
+    .img-block span { font-size: 0.78rem; color: var(--gray); }
+
+    .nav-btns { display: flex; justify-content: space-between; margin-top: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .nav-btns a { text-decoration: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
+    .btn-back { background: white; color: var(--navy); border: 1.5px solid #c8d8f8; }
+    .btn-back:hover { background: #f0f4ff; }
+    .btn-home { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(46,134,255,0.3); }
+    .btn-home:hover { background: #1a70e0; }
+
+    footer { background: var(--navy); color: #6b7a94; text-align: center; padding: 2rem; font-size: 0.85rem; }
+    footer span { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">CSC<span>121</span></div>
+  <ul>
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="modules.html" class="active">Modules</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a> › <a href="modules.html">Modules</a> › Module 3</div>
+  <h1><span>03 /</span> Cascading Style Sheets</h1>
+  <p>Controlling the look, feel, and layout of web pages with CSS.</p>
+</div>
+
+<main>
+
+  <div class="card">
+    <h2>Module Overview</h2>
+    <p>CSS (Cascading Style Sheets) is the language used to style and lay out web pages. It controls colors, fonts, spacing, positioning, and responsive behavior. This module builds on the HTML skills from Module 2 and shows students how to transform plain HTML into visually appealing websites.</p>
+    <p>By the end of this module, students will be able to write and link CSS stylesheets, apply styles using selectors, and create basic responsive layouts.</p>
+  </div>
+
+  <div class="card">
+    <h2>Topics Covered</h2>
+    <ul class="styled">
+      <li>What is CSS and how it works with HTML</li>
+      <li>Three ways to apply CSS: Inline, Internal, External</li>
+      <li>CSS Selectors: element, class, id, descendant</li>
+      <li>Colors: named, hex, rgb, rgba</li>
+      <li>Typography: font-family, font-size, font-weight, text-align</li>
+      <li>The CSS Box Model: margin, border, padding, content</li>
+      <li>Background properties: color, image, repeat, position</li>
+      <li>Display and Positioning: block, inline, flex, relative, absolute</li>
+      <li>Introduction to Responsive Design with media queries</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Sample CSS Code</h2>
+    <p>A basic external stylesheet example practiced in the lab:</p>
+    <div class="code-block">
+      <span class="comment">/* Styling the body */</span><br/>
+      <span class="sel">body</span> {<br/>
+      &nbsp;&nbsp;<span class="prop">font-family</span>: <span class="val">Arial, sans-serif</span>;<br/>
+      &nbsp;&nbsp;<span class="prop">background-color</span>: <span class="val">#f0f4ff</span>;<br/>
+      &nbsp;&nbsp;<span class="prop">color</span>: <span class="val">#1e2d40</span>;<br/>
+      }<br/><br/>
+      <span class="comment">/* Heading style */</span><br/>
+      <span class="sel">h1</span> {<br/>
+      &nbsp;&nbsp;<span class="prop">color</span>: <span class="val">#2e86ff</span>;<br/>
+      &nbsp;&nbsp;<span class="prop">font-size</span>: <span class="val">2rem</span>;<br/>
+      &nbsp;&nbsp;<span class="prop">text-align</span>: <span class="val">center</span>;<br/>
+      }
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-label">Live Preview</div>
+      <div class="demo-content">
+        <div class="demo-box1">This box is styled with CSS — background: #2e86ff, color: white</div>
+        <div class="demo-box2">border-left: 3px solid #00d4aa — a CSS border trick!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>CSS Color Examples</h2>
+    <p>Common web colors explored in practical sessions:</p>
+    <div class="color-swatches">
+      <div class="swatch" style="background:#2e86ff;">#2e86ff<br/>Blue</div>
+      <div class="swatch" style="background:#00d4aa; color:#0a1628;">#00d4aa<br/>Teal</div>
+      <div class="swatch" style="background:#0a1628;">#0a1628<br/>Navy</div>
+      <div class="swatch" style="background:#ff6b6b;">#ff6b6b<br/>Red</div>
+      <div class="swatch" style="background:#ffd580; color:#1e2d40;">#ffd580<br/>Yellow</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Lab Schedule</h2>
+    <table>
+      <thead>
+        <tr><th>Week</th><th>Topic Covered</th><th>Lab Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Week 6</td><td>CSS Syntax, Selectors & Colors</td><td>Quiz 3</td></tr>
+        <tr><td>Week 7</td><td>Box Model, Typography & Backgrounds</td><td>Practical Exercise 3</td></tr>
+        <tr><td>Week 8</td><td>Flexbox, Positioning & Media Queries</td><td>Portfolio Project</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+    <h2>Lab Practical Visuals</h2>
+    <div class="img-grid">
+        
+        <div class="img-block" style="padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+            <img src="https://i.imgur.com/0Shhwxa.png" alt="HTML Tag Structure" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"/>
+        </div>
+
+        <div class="img-block" style="padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+            <img src="https://i.imgur.com/hAqh797.png" alt="HTML Table Example" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"/>
+        </div>
+
+
+    </div>
+    <p style="margin-top:1rem; font-size:0.82rem; color:var(--gray);">These are the simple visual representation of the CSS Box Model and the CSS Flexbox Layout.</p>
+  </div>
+
+  <div class="nav-btns">
+    <a href="module2.html" class="btn-back">← Module 2: HTML</a>
+    <a href="index.html" class="btn-home">Back to Home →</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>CSC 121 — Web Programming Lab Portfolio &nbsp;|&nbsp; <span>Module 3: CSS</span></p>
+</footer>
+
+</body>
+</html>
